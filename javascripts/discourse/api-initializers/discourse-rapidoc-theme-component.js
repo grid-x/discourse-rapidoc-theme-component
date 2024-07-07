@@ -56,7 +56,6 @@ async function applyRapidoc(element, key = "composer") {
           allow-api-list-style-selection="false"
           allow-spec-file-download="true"
           theme="${theme==='dark' ? 'dark' : 'light'}" 
-          layout="column" 
         > 
         </rapi-doc>
         <br/>
