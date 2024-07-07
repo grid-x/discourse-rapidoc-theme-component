@@ -13,7 +13,7 @@ To use it ...
 ```apidoc
 https://petstore.swagger.io/v2/swagger.json
 ```
-```
+
 
 If specification is not publicly accessible, you can attach the specification file to your post and copy the URL after the file has been uploaded.
 
