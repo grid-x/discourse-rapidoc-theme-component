@@ -25,26 +25,23 @@ async function applyRapidoc(element, key = "composer") {
 
     const spinner = document.createElement("div");
     spinner.classList.add("spinner");
-
     if (apidoc.dataset.codeHeight && key !== "composer") {
       apidoc.style.height = `${apidoc.dataset.codeHeight}px`;
     }
-
     apidoc.append(spinner);
   });
 
   apidocs.forEach((apidoc, index) => {
-    const code = apidoc.querySelector("code");
+    const codeBlock = apidoc.querySelector("code");
 
-    if (!code) {
+    if (!codeBlock) {
       return;
     }
 
-    const rapidocId = `apidoc_${index}_${key}`;
-    const promise =  new Promise(resolve => resolve(code.textContent))
+    const promise =  new Promise(resolve => resolve(codeBlock.textContent))
     promise
       .then((spec) => {
-        apidoc.innerHTML = `
+        apidoc.parent.innerHTML = `
         <rapi-doc 
           spec-url="${spec}"
           render-style="view"
@@ -75,16 +72,16 @@ async function applyRapidoc(element, key = "composer") {
   });
 }
 
-function updateMarkdownHeight(rapidoc, index) {
-  let height = parseInt(rapidoc.getBoundingClientRect().height, 10);
-  let calculatedHeight = parseInt(rapidoc.dataset.calculatedHeight, 10);
+function updateMarkdownHeight(apidoc, index) {
+  let height = parseInt(apidoc.getBoundingClientRect().height, 10);
+  let calculatedHeight = parseInt(apidoc.dataset.calculatedHeight, 10);
 
   if (height === 0) {
     return;
   }
 
   if (height !== calculatedHeight) {
-    rapidoc.dataset.calculatedHeight = height;
+    apidoc.dataset.calculatedHeight = height;
     // TODO: an API to grab the composer vs leaning on hunting through HTML
     // would be better
     let composer = document.getElementsByClassName("d-editor-input")[0];
