@@ -11,15 +11,12 @@ async function applyRapidoc(element, key = "composer") {
 
   await loadScript(settings.theme_uploads_local.rapidoc_js);
 
-  // window.rapidoc.initialize({
-  //   startOnLoad: false,
-  //   theme:
-  //     getComputedStyle(document.body)
-  //       .getPropertyValue("--scheme-type")
-  //       .trim() === "dark"
-  //       ? "dark"
-  //       : "default",
-  // });
+  const theme =
+    getComputedStyle(document.body)
+      .getPropertyValue("--scheme-type")
+      .trim() === "dark"
+      ? "dark"
+      : "default"
 
   rapidocs.forEach((rapidoc) => {
     if (rapidoc.dataset.processed) {
@@ -55,7 +52,7 @@ async function applyRapidoc(element, key = "composer") {
           show-info="false" allow-authentication="false" 
           allow-server-selection="false" 
           allow-api-list-style-selection="false" 
-          theme="dark" 
+          theme="${theme==='dark' ? 'dark' : 'light'}" 
           layout="column" 
         > 
         </rapi-doc>
