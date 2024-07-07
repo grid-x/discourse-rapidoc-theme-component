@@ -23,12 +23,9 @@ async function applyRapidoc(element, key = "composer") {
       return;
     }
 
-    const spinner = document.createElement("div");
-    spinner.classList.add("spinner");
     if (apidoc.dataset.codeHeight && key !== "composer") {
       apidoc.style.height = `${apidoc.dataset.codeHeight}px`;
     }
-    apidoc.append(spinner);
   });
 
   apidocs.forEach((apidoc, index) => {
@@ -55,7 +52,6 @@ async function applyRapidoc(element, key = "composer") {
           theme="${theme==='dark' ? 'dark' : 'light'}" 
         > 
         </rapi-doc>
-        <br/>
         `;
       })
       .catch((e) => {
@@ -63,7 +59,6 @@ async function applyRapidoc(element, key = "composer") {
       })
       .finally(() => {
         apidoc.dataset.processed = true;
-        apidoc.querySelector(".spinner")?.remove();
       });
 
     if (key === "composer") {
