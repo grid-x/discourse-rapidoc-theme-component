@@ -41,7 +41,7 @@ async function applyRapidoc(element, key = "composer") {
     }
 
     const rapidocId = `rapidoc_${index}_${key}`;
-    const promise =  new Promise(resolve => resolve("https://petstore.swagger.io/v2/swagger.json"))
+    const promise =  new Promise(resolve => resolve(code.textContent))
     promise
       .then((spec) => {
         rapidoc.innerHTML = `
