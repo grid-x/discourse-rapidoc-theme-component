@@ -2,7 +2,7 @@ import { apiInitializer } from "discourse/lib/api";
 import loadScript from "discourse/lib/load-script";
 import discourseDebounce from "discourse-common/lib/debounce";
 
-async function applyRapidoc(element, key = "composer") {
+async function applyRapidoc(element) {
   const apidocs = element.querySelectorAll("pre[data-code-wrap=apidoc]");
 
   if (!apidocs.length) {
@@ -24,7 +24,7 @@ async function applyRapidoc(element, key = "composer") {
     }
   });
 
-  apidocs.forEach((apidoc, index) => {
+  apidocs.forEach((apidoc) => {
     const codeBlock = apidoc.querySelector("code");
 
     if (!codeBlock) {
