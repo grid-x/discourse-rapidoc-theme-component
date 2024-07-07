@@ -9,7 +9,7 @@ async function applyRapidoc(element, key = "composer") {
     return;
   }
 
-  await loadScript(settings.theme_uploads_local.mermaid_js);
+  await loadScript(settings.theme_uploads_local.rapidoc_js);
 
   // window.rapidoc.initialize({
   //   startOnLoad: false,
