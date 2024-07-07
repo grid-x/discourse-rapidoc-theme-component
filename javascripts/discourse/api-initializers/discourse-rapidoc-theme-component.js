@@ -44,14 +44,14 @@ async function applyRapidoc(element, key = "composer") {
     }
 
     const rapidocId = `rapidoc_${index}_${key}`;
-    const promise = window.rapidoc.render(rapidocId, code.textContent || "");
+    const promise =  new Promise(resolve => resolve("https://petstore.swagger.io/v2/swagger.json"))
     promise
-      .then((object) => {
-        rapidoc.innerHTML = object.svg;
+      .then((spec) => {
+        rapidoc.innerHTML = `<rapi-doc spec-url = "https://petstore.swagger.io/v2/swagger.json"> </rapi-doc>`;
       })
       .catch((e) => {
         rapidoc.innerText = e?.message || e;
-        // rapidoc injects an error element, we need to remove it
+        // TODO mermaid injects an error element, we need to remove it
         document.getElementById(rapidocId)?.remove();
       })
       .finally(() => {
