@@ -41,6 +41,7 @@ async function applyRapidoc(element, key = "composer") {
     const promise =  new Promise(resolve => resolve(codeBlock.textContent))
     promise
       .then((spec) => {
+        console.log(apidoc)
         apidoc.innerHTML = `
         <rapi-doc 
           spec-url="${spec}"
