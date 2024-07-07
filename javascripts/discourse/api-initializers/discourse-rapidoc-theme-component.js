@@ -51,7 +51,12 @@ async function applyRapidoc(element, key = "composer") {
         <rapi-doc 
           spec-url="${spec}"
           render-style="view"
-          show-headerä="false"
+          show-header="false"
+          show-info="false" allow-authentication="false" 
+          allow-server-selection="false" 
+          allow-api-list-style-selection="false" 
+          theme="dark" 
+          layout="column" 
         > 
         </rapi-doc>
         `;
