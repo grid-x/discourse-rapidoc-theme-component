@@ -47,12 +47,17 @@ async function applyRapidoc(element, key = "composer") {
     const promise =  new Promise(resolve => resolve("https://petstore.swagger.io/v2/swagger.json"))
     promise
       .then((spec) => {
-        rapidoc.innerHTML = `<rapi-doc spec-url = "https://petstore.swagger.io/v2/swagger.json"> </rapi-doc>`;
+        rapidoc.innerHTML = `
+        <rapi-doc 
+          spec-url="${spec}
+          render-style="view"
+          show-headerä="false"
+        > 
+        </rapi-doc>
+        `;
       })
       .catch((e) => {
         rapidoc.innerText = e?.message || e;
-        // TODO mermaid injects an error element, we need to remove it
-        document.getElementById(rapidocId)?.remove();
       })
       .finally(() => {
         rapidoc.dataset.processed = true;
@@ -83,9 +88,9 @@ function updateMarkdownHeight(rapidoc, index) {
 
     let n = 0;
     for (let i = 0; i < split.length; i++) {
-      if (split[i].match(/```rapidoc((\s*)|.*auto)$/)) {
+      if (split[i].match(/```apidoc((\s*)|.*auto)$/)) {
         if (n === index) {
-          split[i] = "```rapidoc height=" + height + ",auto";
+          split[i] = "```apidoc height=" + height + ",auto";
         }
         n += 1;
       }
@@ -108,32 +113,6 @@ function updateMarkdownHeight(rapidoc, index) {
 }
 
 export default apiInitializer("1.13.0", (api) => {
-  // this is a hack as applySurround expects a top level
-  // composer key, not possible from a theme
-  window.I18n.translations[
-    window.I18n.locale
-  ].js.composer.rapidoc_sample = `    flowchart
-         A --> B`;
-
-  api.addComposerToolbarPopupMenuOption({
-    icon: "project-diagram",
-    label: themePrefix("insert_rapidoc_sample"),
-    action: (toolbarEvent) => {
-      toolbarEvent.applySurround(
-        "\n```rapidoc\n",
-        "\n```\n",
-        "rapidoc_sample",
-        { multiline: false }
-      );
-    },
-  });
-
-  if (api.decorateChatMessage) {
-    api.decorateChatMessage((element) => {
-      applyRapidoc(element, `chat_message_${element.id}`);
-    });
-  }
-
   api.decorateCookedElement(
     async (elem, helper) => {
       const id = helper ? `post_${helper.getModel().id}` : "composer";
