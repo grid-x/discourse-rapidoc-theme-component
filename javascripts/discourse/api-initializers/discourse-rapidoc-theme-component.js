@@ -65,54 +65,9 @@ async function applyRapidoc(element, key = "composer") {
         apidoc.dataset.processed = true;
         apidoc.querySelector(".spinner")?.remove();
       });
-
-    if (key === "composer") {
-      discourseDebounce(updateMarkdownHeight, apidoc, index, 500);
-    }
   });
 }
-
-function updateMarkdownHeight(rapidoc, index) {
-  let height = parseInt(rapidoc.getBoundingClientRect().height, 10);
-  let calculatedHeight = parseInt(rapidoc.dataset.calculatedHeight, 10);
-
-  if (height === 0) {
-    return;
-  }
-
-  if (height !== calculatedHeight) {
-    rapidoc.dataset.calculatedHeight = height;
-    // TODO: an API to grab the composer vs leaning on hunting through HTML
-    // would be better
-    let composer = document.getElementsByClassName("d-editor-input")[0];
-
-    let split = composer.value.split("\n");
-
-    let n = 0;
-    for (let i = 0; i < split.length; i++) {
-      if (split[i].match(/```apidoc((\s*)|.*auto)$/)) {
-        if (n === index) {
-          split[i] = "```apidoc height=" + height + ",auto";
-        }
-        n += 1;
-      }
-    }
-
-    let joined = split.join("\n");
-
-    if (joined !== composer.value) {
-      let restorePosStart = composer.selectionStart;
-      let restorePosEnd = composer.selectionEnd;
-
-      composer.value = joined;
-
-      if (restorePosStart) {
-        composer.selectionStart = restorePosStart;
-        composer.selectionEnd = restorePosEnd;
-      }
-    }
-  }
-}
+ 
 
 export default apiInitializer("1.13.0", (api) => {
   api.decorateCookedElement(
