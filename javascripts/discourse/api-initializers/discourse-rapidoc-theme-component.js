@@ -11,15 +11,15 @@ async function applyRapidoc(element, key = "composer") {
 
   await loadScript(settings.theme_uploads_local.mermaid_js);
 
-  window.rapidoc.initialize({
-    startOnLoad: false,
-    theme:
-      getComputedStyle(document.body)
-        .getPropertyValue("--scheme-type")
-        .trim() === "dark"
-        ? "dark"
-        : "default",
-  });
+  // window.rapidoc.initialize({
+  //   startOnLoad: false,
+  //   theme:
+  //     getComputedStyle(document.body)
+  //       .getPropertyValue("--scheme-type")
+  //       .trim() === "dark"
+  //       ? "dark"
+  //       : "default",
+  // });
 
   rapidocs.forEach((rapidoc) => {
     if (rapidoc.dataset.processed) {
