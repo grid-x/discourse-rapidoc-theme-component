@@ -56,6 +56,7 @@ async function applyRapidoc(element, key = "composer") {
           layout="column" 
         > 
         </rapi-doc>
+        <br/>
         `;
       })
       .catch((e) => {
