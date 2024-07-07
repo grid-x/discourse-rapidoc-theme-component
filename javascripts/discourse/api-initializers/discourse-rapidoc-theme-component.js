@@ -22,10 +22,6 @@ async function applyRapidoc(element, key = "composer") {
     if (apidoc.dataset.processed) {
       return;
     }
-
-    if (apidoc.dataset.codeHeight && key !== "composer") {
-      apidoc.style.height = `${apidoc.dataset.codeHeight}px`;
-    }
   });
 
   apidocs.forEach((apidoc, index) => {
