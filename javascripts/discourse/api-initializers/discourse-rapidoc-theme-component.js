@@ -61,10 +61,6 @@ async function applyRapidoc(element, key = "composer") {
       .finally(() => {
         apidoc.dataset.processed = true;
       });
-
-    if (key === "composer") {
-      //discourseDebounce(updateMarkdownHeight, apidoc, index, 500);
-    }
   });
 }
 
