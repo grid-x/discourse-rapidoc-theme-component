@@ -49,7 +49,7 @@ async function applyRapidoc(element, key = "composer") {
       .then((spec) => {
         rapidoc.innerHTML = `
         <rapi-doc 
-          spec-url="${spec}
+          spec-url="${spec}"
           render-style="view"
           show-headerä="false"
         > 
