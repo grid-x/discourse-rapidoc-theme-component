@@ -3,9 +3,9 @@ import loadScript from "discourse/lib/load-script";
 import discourseDebounce from "discourse-common/lib/debounce";
 
 async function applyRapidoc(element, key = "composer") {
-  const rapidocs = element.querySelectorAll("pre[data-code-wrap=rapidoc]");
+  const apidocs = element.querySelectorAll("pre[data-code-wrap=apidoc]");
 
-  if (!rapidocs.length) {
+  if (!apidocs.length) {
     return;
   }
 
@@ -18,33 +18,33 @@ async function applyRapidoc(element, key = "composer") {
       ? "dark"
       : "default"
 
-  rapidocs.forEach((rapidoc) => {
-    if (rapidoc.dataset.processed) {
+  apidocs.forEach((apidoc) => {
+    if (apidoc.dataset.processed) {
       return;
     }
 
     const spinner = document.createElement("div");
     spinner.classList.add("spinner");
 
-    if (rapidoc.dataset.codeHeight && key !== "composer") {
-      rapidoc.style.height = `${rapidoc.dataset.codeHeight}px`;
+    if (apidoc.dataset.codeHeight && key !== "composer") {
+      apidoc.style.height = `${apidoc.dataset.codeHeight}px`;
     }
 
-    rapidoc.append(spinner);
+    apidoc.append(spinner);
   });
 
-  rapidocs.forEach((rapidoc, index) => {
-    const code = rapidoc.querySelector("code");
+  apidocs.forEach((apidoc, index) => {
+    const code = apidoc.querySelector("code");
 
     if (!code) {
       return;
     }
 
-    const rapidocId = `rapidoc_${index}_${key}`;
+    const rapidocId = `apidoc_${index}_${key}`;
     const promise =  new Promise(resolve => resolve(code.textContent))
     promise
       .then((spec) => {
-        rapidoc.innerHTML = `
+        apidoc.innerHTML = `
         <rapi-doc 
           spec-url="${spec}"
           render-style="view"
@@ -59,15 +59,15 @@ async function applyRapidoc(element, key = "composer") {
         `;
       })
       .catch((e) => {
-        rapidoc.innerText = e?.message || e;
+        apidoc.innerText = e?.message || e;
       })
       .finally(() => {
-        rapidoc.dataset.processed = true;
-        rapidoc.querySelector(".spinner")?.remove();
+        apidoc.dataset.processed = true;
+        apidoc.querySelector(".spinner")?.remove();
       });
 
     if (key === "composer") {
-      discourseDebounce(updateMarkdownHeight, rapidoc, index, 500);
+      discourseDebounce(updateMarkdownHeight, apidoc, index, 500);
     }
   });
 }
