@@ -63,7 +63,7 @@ async function applyRapidoc(element, key = "composer") {
       });
 
     if (key === "composer") {
-      discourseDebounce(updateMarkdownHeight, apidoc, index, 500);
+      //discourseDebounce(updateMarkdownHeight, apidoc, index, 500);
     }
   });
 }
