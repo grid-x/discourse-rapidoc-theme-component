@@ -1,9 +1,9 @@
 {
-  "about_url": "https://meta.discourse.org/t/discourse-mermaid/218242",
-  "license_url": null,
+  "about_url": "https://github.com/wwerner/discourse-rapidoc-theme-component",
+  "license_url": "https://github.com/wwerner/discourse-rapidoc-theme-component/blob/main/LICENSE",
   "assets": {
-    "mermaid_js": "assets/mermaid-10.6.1.min.js"
+    "mermaid_js": "assets/rapidoc-9.3.4.min.js"
   },
-  "name": "Discourse Mermaid",
+  "name": "Discourse Rapidoc",
   "component": true
 }

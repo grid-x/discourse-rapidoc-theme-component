@@ -2,16 +2,16 @@ import { apiInitializer } from "discourse/lib/api";
 import loadScript from "discourse/lib/load-script";
 import discourseDebounce from "discourse-common/lib/debounce";
 
-async function applyMermaid(element, key = "composer") {
-  const mermaids = element.querySelectorAll("pre[data-code-wrap=mermaid]");
+async function applyRapidoc(element, key = "composer") {
+  const rapidocs = element.querySelectorAll("pre[data-code-wrap=rapidoc]");
 
-  if (!mermaids.length) {
+  if (!rapidocs.length) {
     return;
   }
 
   await loadScript(settings.theme_uploads_local.mermaid_js);
 
-  window.mermaid.initialize({
+  window.rapidoc.initialize({
     startOnLoad: false,
     theme:
       getComputedStyle(document.body)
@@ -21,60 +21,60 @@ async function applyMermaid(element, key = "composer") {
         : "default",
   });
 
-  mermaids.forEach((mermaid) => {
-    if (mermaid.dataset.processed) {
+  rapidocs.forEach((rapidoc) => {
+    if (rapidoc.dataset.processed) {
       return;
     }
 
     const spinner = document.createElement("div");
     spinner.classList.add("spinner");
 
-    if (mermaid.dataset.codeHeight && key !== "composer") {
-      mermaid.style.height = `${mermaid.dataset.codeHeight}px`;
+    if (rapidoc.dataset.codeHeight && key !== "composer") {
+      rapidoc.style.height = `${rapidoc.dataset.codeHeight}px`;
     }
 
-    mermaid.append(spinner);
+    rapidoc.append(spinner);
   });
 
-  mermaids.forEach((mermaid, index) => {
-    const code = mermaid.querySelector("code");
+  rapidocs.forEach((rapidoc, index) => {
+    const code = rapidoc.querySelector("code");
 
     if (!code) {
       return;
     }
 
-    const mermaidId = `mermaid_${index}_${key}`;
-    const promise = window.mermaid.render(mermaidId, code.textContent || "");
+    const rapidocId = `rapidoc_${index}_${key}`;
+    const promise = window.rapidoc.render(rapidocId, code.textContent || "");
     promise
       .then((object) => {
-        mermaid.innerHTML = object.svg;
+        rapidoc.innerHTML = object.svg;
       })
       .catch((e) => {
-        mermaid.innerText = e?.message || e;
-        // mermaid injects an error element, we need to remove it
-        document.getElementById(mermaidId)?.remove();
+        rapidoc.innerText = e?.message || e;
+        // rapidoc injects an error element, we need to remove it
+        document.getElementById(rapidocId)?.remove();
       })
       .finally(() => {
-        mermaid.dataset.processed = true;
-        mermaid.querySelector(".spinner")?.remove();
+        rapidoc.dataset.processed = true;
+        rapidoc.querySelector(".spinner")?.remove();
       });
 
     if (key === "composer") {
-      discourseDebounce(updateMarkdownHeight, mermaid, index, 500);
+      discourseDebounce(updateMarkdownHeight, rapidoc, index, 500);
     }
   });
 }
 
-function updateMarkdownHeight(mermaid, index) {
-  let height = parseInt(mermaid.getBoundingClientRect().height, 10);
-  let calculatedHeight = parseInt(mermaid.dataset.calculatedHeight, 10);
+function updateMarkdownHeight(rapidoc, index) {
+  let height = parseInt(rapidoc.getBoundingClientRect().height, 10);
+  let calculatedHeight = parseInt(rapidoc.dataset.calculatedHeight, 10);
 
   if (height === 0) {
     return;
   }
 
   if (height !== calculatedHeight) {
-    mermaid.dataset.calculatedHeight = height;
+    rapidoc.dataset.calculatedHeight = height;
     // TODO: an API to grab the composer vs leaning on hunting through HTML
     // would be better
     let composer = document.getElementsByClassName("d-editor-input")[0];
@@ -83,9 +83,9 @@ function updateMarkdownHeight(mermaid, index) {
 
     let n = 0;
     for (let i = 0; i < split.length; i++) {
-      if (split[i].match(/```mermaid((\s*)|.*auto)$/)) {
+      if (split[i].match(/```rapidoc((\s*)|.*auto)$/)) {
         if (n === index) {
-          split[i] = "```mermaid height=" + height + ",auto";
+          split[i] = "```rapidoc height=" + height + ",auto";
         }
         n += 1;
       }
@@ -112,17 +112,17 @@ export default apiInitializer("1.13.0", (api) => {
   // composer key, not possible from a theme
   window.I18n.translations[
     window.I18n.locale
-  ].js.composer.mermaid_sample = `    flowchart
+  ].js.composer.rapidoc_sample = `    flowchart
          A --> B`;
 
   api.addComposerToolbarPopupMenuOption({
     icon: "project-diagram",
-    label: themePrefix("insert_mermaid_sample"),
+    label: themePrefix("insert_rapidoc_sample"),
     action: (toolbarEvent) => {
       toolbarEvent.applySurround(
-        "\n```mermaid\n",
+        "\n```rapidoc\n",
         "\n```\n",
-        "mermaid_sample",
+        "rapidoc_sample",
         { multiline: false }
       );
     },
@@ -130,15 +130,15 @@ export default apiInitializer("1.13.0", (api) => {
 
   if (api.decorateChatMessage) {
     api.decorateChatMessage((element) => {
-      applyMermaid(element, `chat_message_${element.id}`);
+      applyRapidoc(element, `chat_message_${element.id}`);
     });
   }
 
   api.decorateCookedElement(
     async (elem, helper) => {
       const id = helper ? `post_${helper.getModel().id}` : "composer";
-      applyMermaid(elem, id);
+      applyRapidoc(elem, id);
     },
-    { id: "discourse-mermaid-theme-component" }
+    { id: "discourse-rapidoc-theme-component" }
   );
 });
