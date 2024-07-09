@@ -2,7 +2,7 @@
   "about_url": "https://github.com/wwerner/discourse-rapidoc-theme-component",
   "license_url": "https://github.com/wwerner/discourse-rapidoc-theme-component/blob/main/LICENSE",
   "assets": {
-    "rapidoc_js": "assets/rapidoc-9.3.4.min.js"
+    "rapidoc_js": "assets/rapidoc.js"
   },
   "name": "Discourse Rapidoc",
   "component": true
