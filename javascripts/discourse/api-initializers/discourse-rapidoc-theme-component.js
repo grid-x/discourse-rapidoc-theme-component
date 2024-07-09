@@ -40,7 +40,7 @@ async function applyRapidoc(element) {
           render-style="view"
           show-header="false"
           show-info="true" 
-          show-curl-before-try="true"
+          show-curl-before-try="false"
           allow-authentication="false" 
           allow-server-selection="false" 
           allow-api-list-style-selection="false"
