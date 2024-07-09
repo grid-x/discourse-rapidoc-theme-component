@@ -41,7 +41,6 @@ async function applyRapidoc(element) {
           show-header="false"
           show-info="true" 
           show-curl-before-try="false"
-          allow-authentication="false" 
           allow-server-selection="false" 
           allow-api-list-style-selection="false"
           allow-spec-file-download="true"
