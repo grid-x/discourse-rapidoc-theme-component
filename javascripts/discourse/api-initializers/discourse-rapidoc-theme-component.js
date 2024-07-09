@@ -45,6 +45,7 @@ async function applyRapidoc(element) {
           allow-server-selection="false" 
           allow-api-list-style-selection="false"
           allow-spec-file-download="true"
+          allow-authentication="true"
           theme="${theme==='dark' ? 'dark' : 'light'}" 
         > 
         </rapi-doc>
