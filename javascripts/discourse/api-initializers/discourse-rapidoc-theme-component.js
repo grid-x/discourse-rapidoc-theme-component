@@ -1,6 +1,5 @@
 import { apiInitializer } from "discourse/lib/api";
 import loadScript from "discourse/lib/load-script";
-import discourseDebounce from "discourse-common/lib/debounce";
 
 async function applyRapidoc(element) {
   const apidocs = element.querySelectorAll("pre[data-code-wrap=apidoc]");
@@ -12,11 +11,10 @@ async function applyRapidoc(element) {
   await loadScript(settings.theme_uploads_local.rapidoc_js);
 
   const theme =
-    getComputedStyle(document.body)
-      .getPropertyValue("--scheme-type")
-      .trim() === "dark"
+    getComputedStyle(document.body).getPropertyValue("--scheme-type").trim() ===
+    "dark"
       ? "dark"
-      : "default"
+      : "default";
 
   apidocs.forEach((apidoc) => {
     if (apidoc.dataset.processed) {
@@ -31,7 +29,7 @@ async function applyRapidoc(element) {
       return;
     }
 
-    const promise =  new Promise(resolve => resolve(codeBlock.textContent))
+    const promise = new Promise((resolve) => resolve(codeBlock.textContent));
     promise
       .then((spec) => {
         apidoc.outerHTML = `
@@ -45,7 +43,7 @@ async function applyRapidoc(element) {
           allow-api-list-style-selection="false"
           allow-spec-file-download="true"
           allow-authentication="true"
-          theme="${theme==='dark' ? 'dark' : 'light'}" 
+          theme="${theme === "dark" ? "dark" : "light"}" 
         > 
         </rapi-doc>
         <br/>
