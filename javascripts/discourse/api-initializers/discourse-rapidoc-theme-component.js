@@ -43,10 +43,9 @@ async function applyRapidoc(element) {
           allow-api-list-style-selection="false"
           allow-spec-file-download="true"
           allow-authentication="true"
-          show-method-in-nav-bar="true"
+          show-method-in-nav-bar="as-colored-text"
           theme="${theme === "dark" ? "dark" : "light"}" 
           nav-bg-color="${theme === "dark" ? "#323334" : "#ebeced"}"
-          show-method-in-nav-bar="as-colored-text"
         > 
         </rapi-doc>
         <br/>
