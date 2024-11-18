@@ -46,7 +46,7 @@ async function applyRapidoc(element) {
           show-method-in-nav-bar="true"
           theme="${theme === "dark" ? "dark" : "light"}" 
           nav-bg-color="${theme === "dark" ? "#323334" : "#ebeced"}"
-
+          show-method-in-nav-bar="as-colored-text"
         > 
         </rapi-doc>
         <br/>
