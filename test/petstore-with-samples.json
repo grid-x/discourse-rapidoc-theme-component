@@ -1,0 +1,424 @@
+{
+ "openapi": "3.0.0",
+ "info": {
+  "version": "1.0.0",
+  "title": "Swagger Petstore",
+  "license": {
+   "name": "MIT"
+  }
+ },
+ "servers": [
+  {
+   "url": "http://petstore.swagger.io/v1"
+  }
+ ],
+ "paths": {
+  "/pets": {
+   "get": {
+    "summary": "List all pets",
+    "operationId": "listPets",
+    "x-badges": [
+     {
+      "label": "alpha",
+      "color": "red"
+     }
+    ],
+    "tags": [
+     "alpha"
+    ],
+    "parameters": [
+     {
+      "name": "limit",
+      "in": "query",
+      "description": "How many items to return at one time (max 100)",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "maximum": 100,
+       "format": "int32"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A paged array of pets",
+      "headers": {
+       "x-next": {
+        "description": "A link to the next page of responses",
+        "schema": {
+         "type": "string"
+        }
+       }
+      },
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "array",
+         "maxItems": 100,
+         "items": {
+          "type": "object",
+          "required": [
+           "id",
+           "name"
+          ],
+          "properties": {
+           "id": {
+            "type": "integer",
+            "format": "int64"
+           },
+           "name": {
+            "type": "string"
+           },
+           "tag": {
+            "type": "string"
+           }
+          },
+          "x-readme-ref-name": "Pet"
+         },
+         "x-readme-ref-name": "Pets"
+        }
+       }
+      }
+     },
+     "default": {
+      "description": "unexpected error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "required": [
+          "code",
+          "message"
+         ],
+         "properties": {
+          "code": {
+           "type": "integer",
+           "format": "int32"
+          },
+          "message": {
+           "type": "string"
+          }
+         },
+         "x-readme-ref-name": "Error"
+        }
+       }
+      }
+     }
+    },
+    "x-code-samples": [
+     {
+      "lang": "go",
+      "label": "Go",
+      "source": "package main\n\nimport (\n\t\"fmt\"\n\t\"net/http\"\n\t\"io\"\n)\n\nfunc main() {\n\n\turl := \"http://petstore.swagger.io/v1/pets\"\n\n\treq, _ := http.NewRequest(\"GET\", url, nil)\n\n\treq.Header.Add(\"accept\", \"application/json\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ := io.ReadAll(res.Body)\n\n\tfmt.Println(string(body))\n\n}"
+     },
+     {
+      "lang": "python",
+      "label": "Python",
+      "source": "import requests\n\nurl = \"http://petstore.swagger.io/v1/pets\"\n\nheaders = {\"accept\": \"application/json\"}\n\nresponse = requests.get(url, headers=headers)\n\nprint(response.text)"
+     },
+     {
+      "lang": "shell",
+      "label": "Shell",
+      "source": "curl --request GET \\\n     --url http://petstore.swagger.io/v1/pets \\\n     --header 'accept: application/json'"
+     },
+     {
+      "lang": "java",
+      "label": "Java",
+      "source": "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"http://petstore.swagger.io/v1/pets\")\n  .get()\n  .addHeader(\"accept\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+     },
+     {
+      "lang": "java",
+      "label": "Kotlin",
+      "source": "val client = OkHttpClient()\n\nval request = Request.Builder()\n  .url(\"http://petstore.swagger.io/v1/pets\")\n  .get()\n  .addHeader(\"accept\", \"application/json\")\n  .build()\n\nval response = client.newCall(request).execute()"
+     },
+     {
+      "lang": "javascript",
+      "label": "Swift",
+      "source": "import Foundation\n\nlet url = URL(string: \"http://petstore.swagger.io/v1/pets\")!\nvar request = URLRequest(url: url)\nrequest.httpMethod = \"GET\"\nrequest.timeoutInterval = 10\nrequest.allHTTPHeaderFields = [\"accept\": \"application/json\"]\n\nlet (data, _) = try await URLSession.shared.data(for: request)\nprint(String(decoding: data, as: UTF8.self))"
+     },
+     {
+      "lang": "csharp",
+      "label": "C#",
+      "source": "using RestSharp;\n\n\nvar options = new RestClientOptions(\"http://petstore.swagger.io/v1/pets\");\nvar client = new RestClient(options);\nvar request = new RestRequest(\"\");\nrequest.AddHeader(\"accept\", \"application/json\");\nvar response = await client.GetAsync(request);\n\nConsole.WriteLine(\"{0}\", response.Content);\n"
+     }
+    ]
+   },
+   "post": {
+    "summary": "Create a pet",
+    "operationId": "createPets",
+    "tags": [
+     "pets"
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "required": [
+         "id",
+         "name"
+        ],
+        "properties": {
+         "id": {
+          "type": "integer",
+          "format": "int64"
+         },
+         "name": {
+          "type": "string"
+         },
+         "tag": {
+          "type": "string"
+         }
+        },
+        "x-readme-ref-name": "Pet"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "201": {
+      "description": "Null response"
+     },
+     "default": {
+      "description": "unexpected error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "required": [
+          "code",
+          "message"
+         ],
+         "properties": {
+          "code": {
+           "type": "integer",
+           "format": "int32"
+          },
+          "message": {
+           "type": "string"
+          }
+         },
+         "x-readme-ref-name": "Error"
+        }
+       }
+      }
+     }
+    },
+    "x-code-samples": [
+     {
+      "lang": "go",
+      "label": "Go",
+      "source": "package main\n\nimport (\n\t\"fmt\"\n\t\"strings\"\n\t\"net/http\"\n\t\"io\"\n)\n\nfunc main() {\n\n\turl := \"http://petstore.swagger.io/v1/pets\"\n\n\tpayload := strings.NewReader(\"{\\\"id\\\":0,\\\"name\\\":\\\"string\\\",\\\"tag\\\":\\\"string\\\"}\")\n\n\treq, _ := http.NewRequest(\"POST\", url, payload)\n\n\treq.Header.Add(\"accept\", \"application/json\")\n\treq.Header.Add(\"content-type\", \"application/json\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ := io.ReadAll(res.Body)\n\n\tfmt.Println(string(body))\n\n}"
+     },
+     {
+      "lang": "python",
+      "label": "Python",
+      "source": "import requests\n\nurl = \"http://petstore.swagger.io/v1/pets\"\n\npayload = {\n    \"id\": 0,\n    \"name\": \"string\",\n    \"tag\": \"string\"\n}\nheaders = {\n    \"accept\": \"application/json\",\n    \"content-type\": \"application/json\"\n}\n\nresponse = requests.post(url, json=payload, headers=headers)\n\nprint(response.text)"
+     },
+     {
+      "lang": "shell",
+      "label": "Shell",
+      "source": "curl --request POST \\\n     --url http://petstore.swagger.io/v1/pets \\\n     --header 'accept: application/json' \\\n     --header 'content-type: application/json' \\\n     --data '\n{\n  \"id\": 0,\n  \"name\": \"string\",\n  \"tag\": \"string\"\n}\n'"
+     },
+     {
+      "lang": "java",
+      "label": "Java",
+      "source": "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"id\\\":0,\\\"name\\\":\\\"string\\\",\\\"tag\\\":\\\"string\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"http://petstore.swagger.io/v1/pets\")\n  .post(body)\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"content-type\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+     },
+     {
+      "lang": "java",
+      "label": "Kotlin",
+      "source": "val client = OkHttpClient()\n\nval mediaType = MediaType.parse(\"application/json\")\nval body = RequestBody.create(mediaType, \"{\\\"id\\\":0,\\\"name\\\":\\\"string\\\",\\\"tag\\\":\\\"string\\\"}\")\nval request = Request.Builder()\n  .url(\"http://petstore.swagger.io/v1/pets\")\n  .post(body)\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"content-type\", \"application/json\")\n  .build()\n\nval response = client.newCall(request).execute()"
+     },
+     {
+      "lang": "javascript",
+      "label": "Swift",
+      "source": "import Foundation\n\nlet parameters = [\n  \"id\": 0,\n  \"name\": \"string\",\n  \"tag\": \"string\"\n] as [String : Any?]\n\nlet postData = try JSONSerialization.data(withJSONObject: parameters, options: [])\n\nlet url = URL(string: \"http://petstore.swagger.io/v1/pets\")!\nvar request = URLRequest(url: url)\nrequest.httpMethod = \"POST\"\nrequest.timeoutInterval = 10\nrequest.allHTTPHeaderFields = [\n  \"accept\": \"application/json\",\n  \"content-type\": \"application/json\"\n]\nrequest.httpBody = postData\n\nlet (data, _) = try await URLSession.shared.data(for: request)\nprint(String(decoding: data, as: UTF8.self))"
+     },
+     {
+      "lang": "csharp",
+      "label": "C#",
+      "source": "using RestSharp;\n\n\nvar options = new RestClientOptions(\"http://petstore.swagger.io/v1/pets\");\nvar client = new RestClient(options);\nvar request = new RestRequest(\"\");\nrequest.AddHeader(\"accept\", \"application/json\");\nrequest.AddJsonBody(\"{\\\"id\\\":0,\\\"name\\\":\\\"string\\\",\\\"tag\\\":\\\"string\\\"}\", false);\nvar response = await client.PostAsync(request);\n\nConsole.WriteLine(\"{0}\", response.Content);\n"
+     }
+    ]
+   }
+  },
+  "/pets/{petId}": {
+   "get": {
+    "summary": "Info for a specific pet",
+    "operationId": "showPetById",
+    "tags": [
+     "pets"
+    ],
+    "parameters": [
+     {
+      "name": "petId",
+      "in": "path",
+      "required": true,
+      "description": "The id of the pet to retrieve",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Expected response to a valid request",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "required": [
+          "id",
+          "name"
+         ],
+         "properties": {
+          "id": {
+           "type": "integer",
+           "format": "int64"
+          },
+          "name": {
+           "type": "string"
+          },
+          "tag": {
+           "type": "string"
+          }
+         },
+         "x-readme-ref-name": "Pet"
+        }
+       }
+      }
+     },
+     "default": {
+      "description": "unexpected error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "required": [
+          "code",
+          "message"
+         ],
+         "properties": {
+          "code": {
+           "type": "integer",
+           "format": "int32"
+          },
+          "message": {
+           "type": "string"
+          }
+         },
+         "x-readme-ref-name": "Error"
+        }
+       }
+      }
+     }
+    },
+    "x-code-samples": [
+     {
+      "lang": "go",
+      "label": "Go",
+      "source": "package main\n\nimport (\n\t\"fmt\"\n\t\"net/http\"\n\t\"io\"\n)\n\nfunc main() {\n\n\turl := \"http://petstore.swagger.io/v1/pets/petId\"\n\n\treq, _ := http.NewRequest(\"GET\", url, nil)\n\n\treq.Header.Add(\"accept\", \"application/json\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ := io.ReadAll(res.Body)\n\n\tfmt.Println(string(body))\n\n}"
+     },
+     {
+      "lang": "python",
+      "label": "Python",
+      "source": "import requests\n\nurl = \"http://petstore.swagger.io/v1/pets/petId\"\n\nheaders = {\"accept\": \"application/json\"}\n\nresponse = requests.get(url, headers=headers)\n\nprint(response.text)"
+     },
+     {
+      "lang": "shell",
+      "label": "Shell",
+      "source": "curl --request GET \\\n     --url http://petstore.swagger.io/v1/pets/petId \\\n     --header 'accept: application/json'"
+     },
+     {
+      "lang": "java",
+      "label": "Java",
+      "source": "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"http://petstore.swagger.io/v1/pets/petId\")\n  .get()\n  .addHeader(\"accept\", \"application/json\")\n  .build();\n\nResponse response = client.newCall(request).execute();"
+     },
+     {
+      "lang": "java",
+      "label": "Kotlin",
+      "source": "val client = OkHttpClient()\n\nval request = Request.Builder()\n  .url(\"http://petstore.swagger.io/v1/pets/petId\")\n  .get()\n  .addHeader(\"accept\", \"application/json\")\n  .build()\n\nval response = client.newCall(request).execute()"
+     },
+     {
+      "lang": "javascript",
+      "label": "Swift",
+      "source": "import Foundation\n\nlet url = URL(string: \"http://petstore.swagger.io/v1/pets/petId\")!\nvar request = URLRequest(url: url)\nrequest.httpMethod = \"GET\"\nrequest.timeoutInterval = 10\nrequest.allHTTPHeaderFields = [\"accept\": \"application/json\"]\n\nlet (data, _) = try await URLSession.shared.data(for: request)\nprint(String(decoding: data, as: UTF8.self))"
+     },
+     {
+      "lang": "csharp",
+      "label": "C#",
+      "source": "using RestSharp;\n\n\nvar options = new RestClientOptions(\"http://petstore.swagger.io/v1/pets/petId\");\nvar client = new RestClient(options);\nvar request = new RestRequest(\"\");\nrequest.AddHeader(\"accept\", \"application/json\");\nvar response = await client.GetAsync(request);\n\nConsole.WriteLine(\"{0}\", response.Content);\n"
+     }
+    ]
+   }
+  }
+ },
+ "components": {
+  "schemas": {
+   "Pet": {
+    "type": "object",
+    "required": [
+     "id",
+     "name"
+    ],
+    "properties": {
+     "id": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "name": {
+      "type": "string"
+     },
+     "tag": {
+      "type": "string"
+     }
+    },
+    "x-readme-ref-name": "Pet"
+   },
+   "Pets": {
+    "type": "array",
+    "maxItems": 100,
+    "items": {
+     "type": "object",
+     "required": [
+      "id",
+      "name"
+     ],
+     "properties": {
+      "id": {
+       "type": "integer",
+       "format": "int64"
+      },
+      "name": {
+       "type": "string"
+      },
+      "tag": {
+       "type": "string"
+      }
+     },
+     "x-readme-ref-name": "Pet"
+    },
+    "x-readme-ref-name": "Pets"
+   },
+   "Error": {
+    "type": "object",
+    "required": [
+     "code",
+     "message"
+    ],
+    "properties": {
+     "code": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "message": {
+      "type": "string"
+     }
+    },
+    "x-readme-ref-name": "Error"
+   }
+  }
+ }
+}
