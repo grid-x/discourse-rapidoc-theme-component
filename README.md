@@ -18,3 +18,14 @@ If specification is not publicly accessible, you can attach the specification fi
 
 Here's how it could look like
 ![rapidoc in discourse](image.png)
+
+## Development
+
+Clone, `yarn` and `yarn dev` and play around with the rapidoc API in [./test/component.html](./test/component.html).
+Review the locally served page.
+
+The page is an approximation of how the component will be rendered within discourse.
+It renders the [petstore sample](./test/petstore-with-samples.json) file which can safely be replaced with any other valid OAS file.
+
+Put the desired rapidoc invocation into `discourse-rapidoc-theme-component`.
+Refer to the official Discourse theme component docs :point_up: for installation instructions.
