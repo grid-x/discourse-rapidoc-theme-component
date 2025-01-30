@@ -21,11 +21,11 @@ Here's how it could look like
 
 ## Development
 
-Clone, `yarn` and `yarn dev` and play around with the rapidoc API in [./test/component.html](./test/component.html).
+Clone, `yarn` and `yarn dev` and play around with the rapidoc API in [./playground/component.html](./playground/component.html).
 Review the locally served page.
 
 The page is an approximation of how the component will be rendered within discourse.
-It renders the [petstore sample](./test/petstore-with-samples.json) file which can safely be replaced with any other valid OAS file.
+It renders the [petstore sample](./playground/petstore-with-samples.json) file which can safely be replaced with any other valid OAS file.
 
 Put the desired rapidoc invocation into `discourse-rapidoc-theme-component`.
 Refer to the official Discourse theme component docs :point_up: for installation instructions.
