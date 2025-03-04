@@ -37,7 +37,7 @@ async function applyRapidoc(element) {
           spec-url="${spec}"
           render-style="focussed"
           layout="column"
-          allow-search="false"
+          allow-search="true"
           show-header="false"
           show-info="true" 
           show-curl-before-try="false"
