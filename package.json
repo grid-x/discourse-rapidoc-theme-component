@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "dev": "nodemon --watch test/index.html --exec 'http-server test -o'"
+    "dev": "nodemon --watch playground/component.html --exec 'http-server playground -o'"
   },
   "devDependencies": {
     "@discourse/lint-configs": "^1.3.7",
