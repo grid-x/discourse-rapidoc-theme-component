@@ -35,7 +35,7 @@ async function applyRapidoc(element) {
         apidoc.outerHTML = `
         <rapi-doc 
           spec-url="${spec}"
-          render-style="read"
+          render-style="focussed"
           layout="column"
           allow-search="true"
           show-header="false"
