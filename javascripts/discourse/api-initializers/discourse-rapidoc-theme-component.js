@@ -45,6 +45,7 @@ async function applyRapidoc(element) {
           allow-server-selection="false" 
           allow-api-list-style-selection="false"
           allow-spec-file-download="true"
+          allow-spec-file-load="false"
           allow-authentication="true"
           persist-auth="true"
           show-method-in-nav-bar="as-colored-text"
