@@ -1,9 +1,9 @@
-.cooked {
+cooked {
   min-width: 768px;
 }
 
 @media (width <= 1420px) {
-  .timeline-container  { 
+  .timeline-container {
     display: none;
   }
 }
