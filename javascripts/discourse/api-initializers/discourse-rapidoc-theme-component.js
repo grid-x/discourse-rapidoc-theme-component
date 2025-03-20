@@ -49,6 +49,7 @@ async function applyRapidoc(element) {
           allow-authentication="true"
           persist-auth="true"
           show-method-in-nav-bar="as-colored-text"
+          schema-description-expanded="true"
           theme="${theme === "dark" ? "dark" : "light"}" 
           nav-bg-color="${theme === "dark" ? "#323334" : "#ebeced"}"
         > 
