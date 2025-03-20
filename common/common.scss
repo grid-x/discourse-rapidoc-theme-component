@@ -1,9 +1,11 @@
-.cooked {
+cooked {
   min-width: 768px;
 }
 
-.timeline-container {
-  display: none;
+@media (width <= 1420px) {
+  .timeline-container {
+    display: none;
+  }
 }
 
 .cooked pre[data-code-wrap="rapidoc"] {
