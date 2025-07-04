@@ -1,7 +1,13 @@
-window.addEventListener('load', function() {
-  fetch('component.html')
-  .then(response => response.text())
-  //.then(data => {console.log(data);return data})
-  .then(data => document.getElementById("component-wrapper").innerHTML = data)
-  .catch(error => console.error('Error:', error));
-});
+window.onload = function() {
+  const ui = SwaggerUIBundle({
+    url: "./petstore-with-samples.json",
+    dom_id: '#swagger-ui',
+    deepLinking: true,
+    presets: [
+      SwaggerUIBundle.presets.apis,
+      SwaggerUIStandalonePreset
+    ]
+  })
+
+  window.ui = ui
+}
